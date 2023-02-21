@@ -1,0 +1,5 @@
+/*
+a) Você deve fazer uma consulta à tabela FactOnlineSales e descobrir qual é o nome completo
+do cliente que mais realizou compras online (de acordo com a coluna SalesQuantity).
+b) Feito isso, faça um agrupamento de produtos e descubra quais foram os top 10 produtos mais
+comprados pelo cliente da letra a, considerando o nome do produto.*/-- LETRA ASELECT 	FirstName AS 'Nome',	MiddleName AS 'Sobrenome',	LastName AS 'Último Sobrenome',	SUM(SalesQuantity) AS 'Total Vendido',	FactOnlineSales.CustomerKeyFROM	FactOnlineSalesINNER JOIN DimCustomer	ON FactOnlineSales.CustomerKey = DimCustomer.CustomerKeyWHERE FirstName IS NOT NULLGROUP BY FirstName, MiddleName,LastName, FactOnlineSales.CustomerKeyORDER BY SUM(SalesQuantity) DESC-- LETRA BSELECT 	TOP(10) ProductName AS 'Produto',	SUM(SalesQuantity) AS 'Total Vendido'FROM	FactOnlineSalesINNER JOIN DimProduct	ON FactOnlineSales.ProductKey = DimProduct.ProductKeyWHERE CustomerKey = '7665'GROUP BY ProductNameORDER BY SUM(SalesQuantity) DESC
